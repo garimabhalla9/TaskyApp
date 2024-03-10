@@ -2,13 +2,10 @@ const state = {
     taskList: [],
 }
 
-// DOM
 const taskContents = document.querySelector(".task__contents");
 const taskModal = document.querySelector(".task__modal__body");
 
 
-// console.log(taskContents);
-// console.log(taskModal)
 
 const htmlTaskContent = ({id, title, description, type, url}) => `
     <div class="col-md-6 col-lg-4 mt-3" id=${id} key=${id}>
@@ -24,7 +21,7 @@ const htmlTaskContent = ({id, title, description, type, url}) => `
             <div class="card-body">
             ${
                 url ? `<img width="100%" src=${url} alt="card image cap" class="card-image-top md-3 rounded-lg"/>` :
-                 `<img width="100%" src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png">`
+                 `<img width="100%" src="https://tse4.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&P=0&h=180">`
             }
             <h4 class="card-title">${title}</h4>
             <p class="card-title trim-3-lines text-muted">${description}</p>
@@ -49,7 +46,7 @@ const htmlModalContent = ({id, title, description, url}) => {
     <div id=${id}>
      ${
                 url ? `<img width="100%" src=${url} alt="card image cap" class="img-fluid md-3 rounded-lg"/>` :
-                `<img width="100%" src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png">`
+                `<img width="100%" src="https://tse4.mm.bing.net/th?id=OIP.F00dCf4bXxX0J-qEEf4qIQHaD6&pid=Api&P=0&h=180">`
             }
             <strong class="text-sm text-muted">Created on ${date.toDateString()}</strong>
             <h2 class="my-3">${title}</h2>
@@ -77,25 +74,6 @@ const loadInitialData = () => {
         taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate))
     })
 }
-
-
-// Spread Operator
-// const data = {
-//     name: "rohan",
-//     age: 27
-// }
-// undefined
-//     console.log(data)
-// VM486:1 {name: 'rohan', age: 27}
-// undefined
-// console.log({data})
-// VM534:1 {data: {…}}data: {name: 'rohan', age: 27}[[Prototype]]: Object
-// undefined
-// console.log({...data})
-// VM592:1 {name: 'rohan', age: 27}
-// undefined
-// console.log({...data, height: 5.11})
-// VM611:1 {name: 'rohan', age: 27, height: 5.11}
 
 const handleSubmit = () => {
     const id = `${Date.now()}`
@@ -166,16 +144,13 @@ const editTask = (e) => {
  parentNode = e.target.parentNode.parentNode.parentNode
  }
 
-//  taskTitle = parentNode.childNodes;
-//  console.log(taskTitle)
-
  taskTitle = parentNode.childNodes[3].childNodes[3];
-//  console.log(taskTitle);
+ 
 taskDescription = parentNode.childNodes[3].childNodes[5];
 tags = parentNode.childNodes[3].childNodes[7].childNodes[1];
-// console.log(tags)
+
 submitButton = parentNode.childNodes[5].childNodes[1];
-// console.log(submitButton);
+
 
 taskTitle.setAttribute("contenteditable", "true")
 taskDescription.setAttribute("contenteditable", "true")
