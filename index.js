@@ -97,7 +97,7 @@ const handleSubmit = () => {
 const openTask = (e) => {
     if(!e) e= window.event;
 
-    const getTask = state.taskList.find(({id}) => id === e.target.id)
+    const getTask = state.taskList.find(({id}) => id == e.target.id)
     taskModal.innerHTML = htmlModalContent(getTask);
 }
 
@@ -160,4 +160,61 @@ submitButton.setAttribute('onclick', "saveEdit.apply(this, arguments)")
 submitButton.removeAttribute("data-bs-toggle");
 submitButton.removeAttribute("data-bs-target");
 submitButton.innerHTML = "Save Changes"
+}
+
+
+const saveEdit = (e) => {
+    if(!e) e= window.event;
+
+const targetId = e.target.id;
+const parentNode = e.target.parentNode.parentNode
+
+const taskTitle = parentNode.childNodes[3].childNodes[3];
+const taskDescription = parentNode.childNodes[3].childNodes[5];
+const tags = parentNode.childNodes[3].childNodes[7].childNodes[1];
+const submitButton = parentNode.childNodes[5].childNodes[1];
+
+const updateData = {
+    taskTitle: taskTitle.innerHTML,
+    taskDescription: taskDescription.innerHTML,
+    tags: tags.innerHTML
+}
+
+let stateCopy = state.taskList;
+
+stateCopy = stateCopy.map((task)=> task.id === targetId ? {
+    id: task.id,
+    title: updateData.taskTitle,
+    description: updateData.taskDescription,
+    tags: updateData.tags,
+    url: task.url
+} : task);
+
+state.taskList = stateCopy;
+updateLocalStorage()
+
+taskTitle.setAttribute("contenteditable", "false")
+taskDescription.setAttribute("contenteditable", "false")
+tags.setAttribute("contenteditable", "false")
+
+submitButton.setAttribute("onclick", "openTask(this, arguments)")
+submitButton.setAttribute("data-bs-toggle", "modal");
+submitButton.setAttribute("data-bs-target", "#showTask");
+submitButton.innerHTML = "Open Task"
+}
+
+const searchTask = (e) => {
+    if(!e) e= window.event;
+
+    while(taskContents.firstChild){
+        taskContents.removeChild(taskContents.firstChild)
+    }
+
+    const resultData = state.taskList.filter(({title})=> title.includes(e.target.value));
+
+    console.log(resultData);
+    resultData.map((cardData)=>{
+        taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardData))
+    });
+
 }
