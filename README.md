@@ -8,5 +8,5 @@ A advance task managing application like a to-do list using HTML, CSS, Bootstrap
 
 # Usage
 
-Simply click on the finalprod branch which includes index.html, index.css, index.js file code in it.
+Simply click on the final branch which includes index.html, index.css, index.js file code in it.
 
